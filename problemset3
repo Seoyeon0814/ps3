@@ -1,0 +1,191 @@
+#Question 1
+#Write a script (or Jupyter Notebook code block) that opens the file, uses a for loop to read through the file line by line and, after finishing reading through the file, reports the highest water level and the date and time that was observed.
+
+# Initialize the highest water level and corresponding date/time
+highest_level = -float('inf')  # Start with a very low value
+highest_level_time = None  # Variable to store the date and time of the highest water level
+
+# Path to the file (use the correct path if needed)
+file_path = 'C:/Users/SHUBHAM/Desktop/CO-OPS__8729108__wl.csv'
+
+# Open and read the CSV file line by line
+with open(file_path, 'r') as file:
+    next(file)  # Skip the header line
+    for line in file:
+        # Split each line by commas to extract individual columns
+        columns = line.strip().split(',')
+        
+        # Try to extract the water level and the date/time from the appropriate columns
+        try:
+            water_level = float(columns[2])  # Water level is in the third column
+            date_time = columns[0]  # Date and time is in the first column
+        except ValueError:
+            # Skip any lines that contain invalid data
+            continue
+
+        # Check if the current water level is higher than the recorded highest
+        if water_level > highest_level:
+            highest_level = water_level
+            highest_level_time = date_time
+
+# Print the highest water level and the corresponding date and time
+print(f"The highest water level observed is {highest_level} on {highest_level_time}")
+
+# Answer : The highest water level observed is 0.561 on 2018-10-10 18:06
+
+
+#Question 2
+#Either in a new script or modifying the above script, calculate the lowest, highest and average water level observed during the time period. As above, print the date and time for the lowest and highest readings. 
+
+# Initialize variables for tracking highest, lowest, and sum of water levels
+highest_level = -float('inf')  # Start with a very low value for highest
+lowest_level = float('inf')    # Start with a very high value for lowest
+total_water_level = 0.0        # Variable to accumulate total water level for average calculation
+count = 0                      # Counter to keep track of number of observations
+
+highest_level_time = None       # Variable to store the date and time of the highest water level
+lowest_level_time = None        # Variable to store the date and time of the lowest water level
+
+# Path to the file (use the correct path if needed)
+file_path = 'C:/Users/SHUBHAM/Desktop/CO-OPS__8729108__wl.csv'
+
+# Open and read the CSV file line by line
+with open(file_path, 'r') as file:
+    next(file)  # Skip the header line
+    for line in file:
+        # Split each line by commas to extract individual columns
+        columns = line.strip().split(',')
+        
+        # Try to extract the water level and the date/time from the appropriate columns
+        try:
+            water_level = float(columns[2])  # Water level is in the third column
+            date_time = columns[0]  # Date and time is in the first column
+        except ValueError:
+            # Skip any lines that contain invalid data
+            continue
+        
+        # Update total water level and count for average calculation
+        total_water_level += water_level
+        count += 1
+
+        # Check if the current water level is higher than the recorded highest
+        if water_level > highest_level:
+            highest_level = water_level
+            highest_level_time = date_time
+        
+        # Check if the current water level is lower than the recorded lowest
+        if water_level < lowest_level:
+            lowest_level = water_level
+            lowest_level_time = date_time
+
+# Calculate average water level
+average_water_level = total_water_level / count if count > 0 else 0
+
+# Print the highest, lowest, and average water levels along with corresponding times
+print(f"The highest water level observed is {highest_level} on {highest_level_time}")
+print(f"The lowest water level observed is {lowest_level} on {lowest_level_time}")
+print(f"The average water level observed is {average_water_level}")
+
+
+# Answer : The highest water level observed is 0.561 on 2018-10-10 18:06
+# Answer : The lowest water level observed is 0.013 on 2018-10-11 19:54
+# Answer : The average water level observed is 0.06581024930747972
+
+#Question 3
+#Write a script (or Jupyter Notebook) that calculates the fastest rise in water level per 6-minute period between measurements (for this assignment, assume that each line of the dataset is a 6-minute interval) and reports the date and time that was observed and the change in water level from the previous recording.
+
+# Initialize variables for tracking the fastest rise in water level
+max_rise = -float('inf')  # Start with a very low value for the maximum rise
+max_rise_time = None      # Variable to store the time of the maximum rise
+previous_water_level = None  # Variable to track the water level from the previous line
+
+# Path to the file (use the correct path if needed)
+file_path = 'C:/Users/SHUBHAM/Desktop/CO-OPS__8729108__wl.csv'
+
+# Open and read the CSV file line by line
+with open(file_path, 'r') as file:
+    next(file)  # Skip the header line
+    for line in file:
+        # Split each line by commas to extract individual columns
+        columns = line.strip().split(',')
+        
+        # Try to extract the water level and the date/time from the appropriate columns
+        try:
+            water_level = float(columns[2])  # Water level is in the third column
+            date_time = columns[0]  # Date and time is in the first column
+        except ValueError:
+            # Skip any lines that contain invalid data
+            continue
+        
+        # If there is a previous water level recorded, calculate the rise
+        if previous_water_level is not None:
+            rise = water_level - previous_water_level
+            
+            # Check if the current rise is the maximum rise observed
+            if rise > max_rise:
+                max_rise = rise
+                max_rise_time = date_time
+        
+        # Update previous water level to the current one for the next iteration
+        previous_water_level = water_level
+
+# Print the time and amount of the fastest rise
+print(f"The fastest rise in water level was {max_rise} observed at {max_rise_time}")
+
+# Answer : The fastest rise in water level was 0.16399999999999998 observed at 2018-10-10 18:00
+
+#Question 4
+# Path to the file (use the correct path for your file)
+file_path = 'C:/Users/SHUBHAM/Desktop/CO-OPS__8729108__wl.csv'
+
+# Initialize variables for tracking previous water level and time
+previous_water_level = None  # Stores the previous water level for comparison
+previous_time = None         # Stores the time of the previous reading
+
+# Function to simulate live water level monitoring from a file
+def simulate_live_reading(file_path):
+    global previous_water_level, previous_time
+    
+    try:
+        # Open the file and read all lines at once
+        with open(file_path, 'r') as file:
+            lines = file.readlines()[1:]  # Skip the header row
+            
+            # Simulate reading data line by line (as if new data is being added over time)
+            for i, line in enumerate(lines):
+                # Split each line by commas to extract columns
+                columns = line.strip().split(',')
+                
+                try:
+                    # Extract water level and time from the current line
+                    water_level = float(columns[2])  # Third column is Water Level
+                    current_time = columns[0]        # First column is Date and Time
+                except (ValueError, IndexError):
+                    # Simulate a warning for missing/invalid data
+                    print(f"Warning: No valid reading received at line {i + 2} (date/time missing).")
+                    continue
+
+                # Check for a significant rise in water level (> 0.25)
+                if previous_water_level is not None:
+                    if water_level - previous_water_level > 0.25:
+                        print(f"Warning: Water level increased by more than 0.25 units at {current_time} (from {previous_water_level} to {water_level}).")
+                
+                # Check if the water level exceeds 5.0
+                if water_level > 5.0:
+                    print(f"Warning: Water level exceeded 5.0 units at {current_time} (current level: {water_level}).")
+                
+                # Update previous water level and time for the next check
+                previous_water_level = water_level
+                previous_time = current_time
+                
+                # Print the current water level (for debugging)
+                print(f"Reading at {current_time}: Water level is {water_level}.")
+
+    except FileNotFoundError:
+        print(f"Error: The file at {file_path} was not found.")
+    except Exception as e:
+        print(f"Error: {e}")
+
+# Simulate live reading from the file without using time.sleep()
+simulate_live_reading(file_path)
+
