@@ -6,7 +6,7 @@ highest_level = -float('inf')  # Start with a very low value
 highest_level_time = None  # Variable to store the date and time of the highest water level
 
 # Path to the file (use the correct path if needed)
-file_path = 'C:/Users/SHUBHAM/Desktop/CO-OPS__8729108__wl.csv'
+file_path = 'C:/Users/s.park2/Desktop/CO-OPS__8729108__wl.csv'
 
 # Open and read the CSV file line by line
 with open(file_path, 'r') as file:
@@ -47,7 +47,7 @@ highest_level_time = None       # Variable to store the date and time of the hig
 lowest_level_time = None        # Variable to store the date and time of the lowest water level
 
 # Path to the file (use the correct path if needed)
-file_path = 'C:/Users/SHUBHAM/Desktop/CO-OPS__8729108__wl.csv'
+file_path = 'C:/Users/s.park2/Desktop/CO-OPS__8729108__wl.csv'
 
 # Open and read the CSV file line by line
 with open(file_path, 'r') as file:
@@ -93,6 +93,7 @@ print(f"The average water level observed is {average_water_level}")
 
 #Question 3
 #Write a script (or Jupyter Notebook) that calculates the fastest rise in water level per 6-minute period between measurements (for this assignment, assume that each line of the dataset is a 6-minute interval) and reports the date and time that was observed and the change in water level from the previous recording.
+ 
 
 # Initialize variables for tracking the fastest rise in water level
 max_rise = -float('inf')  # Start with a very low value for the maximum rise
@@ -100,7 +101,7 @@ max_rise_time = None      # Variable to store the time of the maximum rise
 previous_water_level = None  # Variable to track the water level from the previous line
 
 # Path to the file (use the correct path if needed)
-file_path = 'C:/Users/SHUBHAM/Desktop/CO-OPS__8729108__wl.csv'
+file_path = 'C:/Users/s.park2/Desktop/CO-OPS__8729108__wl.csv'
 
 # Open and read the CSV file line by line
 with open(file_path, 'r') as file:
@@ -136,7 +137,7 @@ print(f"The fastest rise in water level was {max_rise} observed at {max_rise_tim
 
 #Question 4
 # Path to the file (use the correct path for your file)
-file_path = 'C:/Users/SHUBHAM/Desktop/CO-OPS__8729108__wl.csv'
+file_path = 'C:/Users/s.park2/Desktop/CO-OPS__8729108__wl.csv'
 
 # Initialize variables for tracking previous water level and time
 previous_water_level = None  # Stores the previous water level for comparison
@@ -188,4 +189,3 @@ def simulate_live_reading(file_path):
 
 # Simulate live reading from the file without using time.sleep()
 simulate_live_reading(file_path)
-
